@@ -5,4 +5,5 @@ import java.util.*
 
 class Transacao (val valor: BigDecimal,
                  val categoria: String,
-                 val data: Calendar)
+                 val tipo: Tipo,
+                 val data: Calendar = Calendar.getInstance())
