@@ -17,33 +17,34 @@ class ListaTransacoesActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_lista_transacoes)
 
-        val transacoes = listOf(Transacao(
-                valor =BigDecimal(20.5),
-                categoria ="comida",
-                tipo = Tipo.Despesa,
-            ), Transacao(
-                valor =
-                BigDecimal(100.0),
-                categoria =
-                "Economia",
-                tipo = Tipo.Receita,
-            )
-            , Transacao(
-                valor =
-                BigDecimal(800.0),
-                categoria =
-                "Salario mensalita especialista asjkl hasduo12",
-                tipo = Tipo.Receita,
-            )
-        )
+        val transacoes: List<Transacao> = transacoesDeExemplo()
 
-        val arrayAdapter = ArrayAdapter(
-            this,
-            android.R.layout.simple_list_item_1, transacoes
-        )
-
-            lista_transacoes_listview.adapter = ListaTransacoesAdapter(transacoes, this)
+            configuraLista(transacoes)
 
     }
+
+    private fun configuraLista(transacoes: List<Transacao>) {
+        lista_transacoes_listview.adapter = ListaTransacoesAdapter(transacoes, this)
+    }
+
+    private fun transacoesDeExemplo() = listOf(
+        Transacao(
+            valor = BigDecimal(20.5),
+            categoria = "comida",
+            tipo = Tipo.Despesa,
+        ), Transacao(
+            valor =
+            BigDecimal(100.0),
+            categoria =
+            "Economia",
+            tipo = Tipo.Receita,
+        ), Transacao(
+            valor =
+            BigDecimal(800.0),
+            categoria =
+            "Salario mensalita especialista asjkl hasduo12",
+            tipo = Tipo.Receita,
+        )
+    )
 
 }

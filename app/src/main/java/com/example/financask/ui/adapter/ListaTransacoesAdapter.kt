@@ -15,11 +15,9 @@ import com.example.financask.ui.model.Transacao
 import kotlinx.android.synthetic.main.transacao_item.view.*
 
 class ListaTransacoesAdapter(
-    transacoes: List<Transacao>,
-    context: Context) : BaseAdapter() {
+    private val transacoes: List<Transacao>,
+    private val context: Context) : BaseAdapter() {
 
-    private val transacoes = transacoes
-    private val context = context
     private val limiteDaCategoria = 30
 
     override fun getCount(): Int {
@@ -41,18 +39,7 @@ class ListaTransacoesAdapter(
 
         val transacao = transacoes[position]
 
-        if(transacao.tipo == Tipo.Receita){
-            viewCriada.transacao_valor.
-            setTextColor(ContextCompat.getColor(context, R.color.receita))
-            viewCriada.
-            transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_receita)
-        } else {
-            viewCriada.transacao_valor.
-            setTextColor(ContextCompat.getColor(context, R.color.despesa))
-            viewCriada.
-            transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_despesa)
-
-        }
+        adicionaCorIcone(transacao, viewCriada)
 
 
         viewCriada.transacao_valor.text = transacao.valor.formataParaReal()
@@ -63,7 +50,23 @@ class ListaTransacoesAdapter(
         return viewCriada
     }
 
+    private fun adicionaCorIcone(
+        transacao: Transacao,
+        viewCriada: View
+    ) {
+        var cor = 0
+        var tipo = 0
+        if (transacao.tipo == Tipo.Receita) {
+            cor= ContextCompat.getColor(context,R.color.receita)
+            tipo = R.drawable.icone_transacao_item_receita
 
+        } else {
+            cor=ContextCompat.getColor(context,R.color.despesa)
+            tipo = R.drawable.icone_transacao_item_despesa
+        }
+        viewCriada.transacao_valor.setTextColor(cor)
+        viewCriada.transacao_icone.setBackgroundResource(tipo)
+    }
 
 
 }

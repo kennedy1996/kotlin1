@@ -2,8 +2,8 @@ package com.example.financask.ui.extension
 
 fun String.limitaEmAte(caracteres: Int) : String{
     if(this.length>caracteres){
-
-        return "${this.substring(0,caracteres)} ..."
+    val primeiroCaracter = 0
+        return "${this.substring(primeiroCaracter,caracteres)} ..."
     }
     return this
 }
