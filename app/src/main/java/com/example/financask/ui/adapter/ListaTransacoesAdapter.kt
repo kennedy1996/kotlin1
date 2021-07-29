@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat
 import com.example.financask.R
 import com.example.financask.ui.extension.formataParaDataBrasileira
 import com.example.financask.ui.extension.formataParaReal
+import com.example.financask.ui.extension.limitaEmAte
 import com.example.financask.ui.model.Tipo
 import com.example.financask.ui.model.Transacao
 import kotlinx.android.synthetic.main.transacao_item.view.*
@@ -19,6 +20,7 @@ class ListaTransacoesAdapter(
 
     private val transacoes = transacoes
     private val context = context
+    private val limiteDaCategoria = 30
 
     override fun getCount(): Int {
         return transacoes.size
@@ -54,12 +56,13 @@ class ListaTransacoesAdapter(
 
 
         viewCriada.transacao_valor.text = transacao.valor.formataParaReal()
-        viewCriada.transacao_categoria.text = transacao.categoria
+        viewCriada.transacao_categoria.text = transacao.categoria.limitaEmAte(limiteDaCategoria)
         viewCriada.transacao_data.text= transacao.data.formataParaDataBrasileira()
 
 
         return viewCriada
     }
+
 
 
 

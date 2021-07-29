@@ -32,7 +32,7 @@ class ListaTransacoesActivity: AppCompatActivity() {
                 valor =
                 BigDecimal(800.0),
                 categoria =
-                "Salario",
+                "Salario mensalita especialista asjkl hasduo12",
                 tipo = Tipo.Receita,
             )
         )
