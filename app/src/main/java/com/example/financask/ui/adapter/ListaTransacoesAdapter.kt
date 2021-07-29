@@ -5,8 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
+import androidx.core.content.ContextCompat
 import com.example.financask.R
 import com.example.financask.ui.extension.formataParaBrasileiro
+import com.example.financask.ui.model.Tipo
 import com.example.financask.ui.model.Transacao
 import kotlinx.android.synthetic.main.transacao_item.view.*
 
@@ -35,6 +37,20 @@ class ListaTransacoesAdapter(
             .inflate(R.layout.transacao_item, parent, false)
 
         val transacao = transacoes[position]
+
+        if(transacao.tipo == Tipo.Receita){
+            viewCriada.transacao_valor.
+            setTextColor(ContextCompat.getColor(context, R.color.receita))
+            viewCriada.
+            transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_receita)
+        } else {
+            viewCriada.transacao_valor.
+            setTextColor(ContextCompat.getColor(context, R.color.despesa))
+            viewCriada.
+            transacao_icone.setBackgroundResource(R.drawable.icone_transacao_item_despesa)
+
+        }
+
 
         viewCriada.transacao_valor.text = transacao.valor.toString()
         viewCriada.transacao_categoria.text = transacao.categoria

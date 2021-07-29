@@ -28,6 +28,13 @@ class ListaTransacoesActivity: AppCompatActivity() {
                 "Economia",
                 tipo = Tipo.Receita,
             )
+            , Transacao(
+                valor =
+                BigDecimal(800.0),
+                categoria =
+                "Salario",
+                tipo = Tipo.Receita,
+            )
         )
 
         val arrayAdapter = ArrayAdapter(
@@ -35,7 +42,7 @@ class ListaTransacoesActivity: AppCompatActivity() {
             android.R.layout.simple_list_item_1, transacoes
         )
 
-        lista_transacoes_listview.setAdapter(ListaTransacoesAdapter(transacoes, this))
+            lista_transacoes_listview.adapter = ListaTransacoesAdapter(transacoes, this)
 
     }
 
