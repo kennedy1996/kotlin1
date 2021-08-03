@@ -27,18 +27,23 @@ class AdicionaTransacaoDialog(
 ) {
     private val viewCriada = criaLayout()
 
-    fun configuraDialog(transacaoDelegate: TransacaoDelegate) {
+    fun configuraDialog(tipo: Tipo, transacaoDelegate: TransacaoDelegate) {
 
 
         configuraCampoData()
-        configuraCampoCategoria()
-        configuraFormulario(transacaoDelegate)
+        configuraCampoCategoria(tipo)
+        configuraFormulario(tipo, transacaoDelegate)
 
     }
 
-    private fun configuraFormulario(transacaoDelegate: TransacaoDelegate) {
+    private fun configuraFormulario(tipo: Tipo, transacaoDelegate: TransacaoDelegate) {
+        val titulo = if(tipo == Tipo.Receita){
+            R.string.adiciona_receita
+        } else {
+            R.string.adiciona_despesa
+        }
         AlertDialog.Builder(context)
-            .setTitle(R.string.adiciona_receita)
+            .setTitle(titulo)
             .setView(viewCriada)
             .setPositiveButton(
                 "ADICIONAR"
@@ -49,12 +54,10 @@ class AdicionaTransacaoDialog(
                     viewCriada.form_transacao_categoria.selectedItem.toString()
 
                 val valor = converteCampoValor(valorEmTexto)
-
-
                val data= dataEmTexto.converteParaCalendar()
 
                 val transacaoCriada = Transacao(
-                    tipo = Tipo.Receita,
+                    tipo = tipo,
                     valor = valor,
                     data = data,
                     categoria = categoriaEmTexto
@@ -77,10 +80,13 @@ private fun converteCampoValor(valorEmTexto: String): BigDecimal{
     }
 }
 
-    private fun configuraCampoCategoria() {
+    private fun configuraCampoCategoria(tipo: Tipo) {
+        val categorias = if(tipo ==Tipo.Receita){
+            R.array.categorias_de_receita
+            } else {R.array.categorias_de_despesa}
         val adapter = ArrayAdapter.createFromResource(
             context,
-            R.array.categorias_de_receita,
+            categorias,
             android.R.layout.simple_spinner_dropdown_item
         )
 
