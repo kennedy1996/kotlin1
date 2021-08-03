@@ -10,52 +10,55 @@ import com.example.financask.ui.model.Transacao
 import kotlinx.android.synthetic.main.resumo_card.view.*
 import java.math.BigDecimal
 
-class ResumoView(private val context: Context,
-                 private val view: View,
-                 transacoes: List<Transacao>){
+class ResumoView(
+    context: Context,
+    private val view: View,
+    transacoes: List<Transacao>
+) {
 
+    private val resumo: Resumo = Resumo(transacoes)
     private val corDespesa = ContextCompat.getColor(context, R.color.despesa)
-    private val resumo : Resumo = Resumo(transacoes)
-    private val corReceita = ContextCompat.getColor(context, R.color.receita)
+        private val corReceita = ContextCompat.getColor(context, R.color.receita)
 
-   private  fun adicionandoReceita() {
-        val totalReceita = resumo.receita
+    private fun adicionandoReceita() {
+      val totalReceita = resumo.receita
         with(view.resumo_card_receita){
             setTextColor(corReceita)
             text = totalReceita.formataParaReal()
         }
-     }
+}
 
-     private fun adicionandoDespesa() {
-        val totalDespesa = resumo.despesa
-         with(view.resumo_card_despesa){
-             setTextColor(corDespesa)
-             text = totalDespesa.formataParaReal()
-         }
-     }
-    private fun adicionaTotal(){
-        val total = resumo.total
-        val cor = corPor(total)
-        with(view.resumo_card_total){
-            setTextColor(cor)
-            text = total.formataParaReal()
-        }
+private fun adicionandoDespesa() {
+    val totalDespesa = resumo.despesa
+    with(view.resumo_card_despesa) {
+        setTextColor(corDespesa)
+        text = totalDespesa.formataParaReal()
     }
+}
 
-    private fun corPor(valor: BigDecimal): Int {
-        if (valor >= BigDecimal.ZERO) {
-            return corReceita
-        } else {
-            return corDespesa
-
-        }
+private fun adicionaTotal() {
+    val total = resumo.total
+    val cor = corPor(total)
+    with(view.resumo_card_total) {
+        setTextColor(cor)
+        text = total.formataParaReal()
     }
+}
 
-    fun atualiza (){
-        adicionandoDespesa()
-        adicionandoReceita()
-        adicionaTotal()
+private fun corPor(valor: BigDecimal): Int {
+    if (valor >= BigDecimal.ZERO) {
+        return corReceita
+    } else {
+        return corDespesa
 
     }
+}
+
+fun atualiza() {
+    adicionandoDespesa()
+    adicionandoReceita()
+    adicionaTotal()
+
+}
 
 }

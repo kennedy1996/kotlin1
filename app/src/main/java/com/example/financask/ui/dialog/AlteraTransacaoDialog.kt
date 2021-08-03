@@ -35,7 +35,7 @@ class AlteraTransacaoDialog(
         configuraCampoData()
         configuraCampoCategoria(tipo)
         configuraFormulario(tipo, transacaoDelegate)
-        
+
         campoValor.setText(transacao.valor.toString())
         campoData.setText(transacao.data.formataParaDataBrasileira())
         val categoriasRetornadas = context.resources.getStringArray(categoriasPor(tipo))
