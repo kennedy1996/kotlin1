@@ -20,7 +20,7 @@ class Resumo(private val transacoes: List<Transacao>) {
     private fun somaPor(tipo : Tipo): BigDecimal{
         val somaDeTransacoesPeloTipo = transacoes
             .filter { it.tipo == tipo }
-            .sumByDouble { it.valor.toDouble() }
+            .sumOf { it.valor.toDouble() }
         return BigDecimal(somaDeTransacoesPeloTipo)
     }
 
