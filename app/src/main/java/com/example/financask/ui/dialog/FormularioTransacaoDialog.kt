@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import com.example.financask.R
-import com.example.financask.ui.delegate.TransacaoDelegate
 import com.example.financask.ui.extension.converteParaCalendar
 import com.example.financask.ui.extension.formataParaDataBrasileira
 import com.example.financask.ui.model.Tipo
@@ -27,15 +26,15 @@ abstract class FormularioTransacaoDialog(
     protected val campoData = viewCriada.form_transacao_data
     abstract protected val tituloBotaoPositivo : String
 
-    fun chama(tipo: Tipo, transacaoDelegate: TransacaoDelegate) {
+    fun chama(tipo: Tipo, delegate: (transacao: Transacao) ->Unit) {
 
 
         configuraCampoData()
         configuraCampoCategoria(tipo)
-        configuraFormulario(tipo, transacaoDelegate)
+        configuraFormulario(tipo, delegate)
     }
 
-    private fun configuraFormulario(tipo: Tipo, transacaoDelegate: TransacaoDelegate) {
+    private fun configuraFormulario(tipo: Tipo, delegate: (transacao: Transacao) -> Unit) {
         val titulo = tituloPor(tipo)
         AlertDialog.Builder(context)
             .setTitle(titulo)
@@ -55,7 +54,7 @@ abstract class FormularioTransacaoDialog(
                     data = data,
                     categoria = categoriaEmTexto
                 )
-                transacaoDelegate.delegate(transacaoCriada)
+                delegate(transacaoCriada)
             }
             .setNegativeButton("CANCELAR", null)
             .show()
