@@ -1,8 +1,12 @@
 package com.example.financask.ui.activity
 
+import android.app.AlertDialog
+import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
@@ -16,6 +20,7 @@ import com.example.financask.ui.dialog.AlteraTransacaoDialog
 import com.example.financask.ui.model.Tipo
 import com.example.financask.ui.model.Transacao
 import kotlinx.android.synthetic.main.activity_lista_transacoes.*
+import androidx.appcompat.app.AlertDialog as AlertDialog1
 
 class ListaTransacoesActivity : AppCompatActivity() {
 
@@ -86,14 +91,38 @@ class ListaTransacoesActivity : AppCompatActivity() {
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
+
+
         val idDoMenu = item.itemId
         if(idDoMenu==1){
             val adapterMenuInfo = item.menuInfo as AdapterView.AdapterContextMenuInfo
             val posicaoDaTransacao = adapterMenuInfo.position
-            remove(posicaoDaTransacao)
+
+            confirmacaoExclusao(posicaoDaTransacao)
         }
         return super.onContextItemSelected(item)
     }
+
+    private fun confirmacaoExclusao(posicaoDaTransacao: Int) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage("Tem certeza que deseja deletar a transação ?")
+            .setTitle("Confirmação")
+            .setPositiveButton("Prosseguir", DialogInterface.OnClickListener { dialog, id ->
+                remove(posicaoDaTransacao)
+            })
+            .setNegativeButton("Cancelar", DialogInterface.OnClickListener { dialog, id ->
+                dialog.cancel()
+            })
+            .show()
+    }
+
+    fun confirmaRemocao(item: MenuItem) {
+                val builder = AlertDialog.Builder(this)
+                builder.setMessage("R.string.dialog_fire_missiles")
+                    .setTitle("titulo")
+                     .show()
+        }
+
 
     private fun remove(posicao: Int) {
         dao.remove(posicao)
