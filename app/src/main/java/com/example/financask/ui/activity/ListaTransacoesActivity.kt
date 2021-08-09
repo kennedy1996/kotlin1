@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.financask.R
 import com.example.financask.ui.adapter.ListaTransacoesAdapter
 import com.example.financask.ui.adapter.ResumoView
+import com.example.financask.ui.dao.TransacaoDAO
 import com.example.financask.ui.dialog.AdicionaTransacaoDialog
 import com.example.financask.ui.dialog.AlteraTransacaoDialog
 import com.example.financask.ui.model.Tipo
@@ -18,7 +19,8 @@ import kotlinx.android.synthetic.main.activity_lista_transacoes.*
 
 class ListaTransacoesActivity : AppCompatActivity() {
 
-    private val transacoes: MutableList<Transacao> = mutableListOf()
+    private val dao = TransacaoDAO()
+    private val transacoes : List<Transacao> = dao.transacoes
     private val viewDaActivity by lazy { window.decorView }
     private val viewGroupDaActivity by lazy { viewDaActivity as ViewGroup }
 
@@ -52,7 +54,7 @@ class ListaTransacoesActivity : AppCompatActivity() {
     }
 
     private fun adiciona(transacao: Transacao) {
-        transacoes.add(transacao)
+        dao.adiciona(transacao)
         atualizaTransacoes()
 
     }
@@ -94,7 +96,7 @@ class ListaTransacoesActivity : AppCompatActivity() {
     }
 
     private fun remove(posicao: Int) {
-        transacoes.removeAt(posicao)
+        dao.remove(posicao)
         atualizaTransacoes()
     }
 
@@ -110,7 +112,7 @@ class ListaTransacoesActivity : AppCompatActivity() {
     }
 
     private fun altera(transacao: Transacao, position: Int) {
-        transacoes[position] = transacao
+        dao.altera(transacao, position)
         atualizaTransacoes()
     }
 }
